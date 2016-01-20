@@ -9,7 +9,7 @@ class Player:
     sprite = pygame.image.load('Assets/player.png')
 
     ##The Player's Dimensions. Universal to all instances of Player.
-    dimensions = sprite.get_rect().size
+    dimensions = pygame.math.Vector2(sprite.get_width(), sprite.get_height())
 
     ##The Player's maximum fall velocity. Universal to all instances of Player.
     maxVelocity = 500.0
