@@ -1,4 +1,5 @@
 import pygame
+import Player
 
 ## Documentation for the Game class.
 #
@@ -11,14 +12,21 @@ class Game:
     def __init__(self, screenDim):
         ## The screen's Dimensions.
         self.screenDim = screenDim
+        ## The Player instance
+        self.player = Player.Player(screenDim * 0.25)
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
     def input(self, event):
-        # If the window is quit.
-        if event.type == pygame.QUIT:
+        # If the window is quit or escape is hit.
+        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             # Exit the game.
             return False
+
+        # If SPACE is hit
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            # Make the player jump
+            self.player.jump()
 
         # Continue the game.
         return True
@@ -29,6 +37,9 @@ class Game:
     #  @returns A true/False value for if the game should continue.
     def update(self, dt):
 
+        # Update the player
+        self.player.update(dt)
+
         # Continue the game.
         return True
 
@@ -36,4 +47,6 @@ class Game:
     #  @param self The object pointer.
     #  @param screen The screen to draw to.
     def draw(self, screen):
-        return
+
+        # Draw the player
+        self.player.draw(screen)
