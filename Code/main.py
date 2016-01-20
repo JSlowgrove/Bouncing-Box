@@ -7,6 +7,8 @@ lastTime = time.clock()
 
 # Initialise PyGame.
 pygame.init()
+# Set window title
+pygame.display.set_caption("Bouncing Box")
 
 # The screen dimensions.
 screenDim = pygame.math.Vector2(640, 480)

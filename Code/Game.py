@@ -22,6 +22,7 @@ class Game:
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
+    #  @returns A true/False value for if the game should continue.
     def input(self, event):
         # If the window is quit or escape is hit.
         if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
