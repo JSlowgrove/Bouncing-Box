@@ -20,3 +20,54 @@ def rectRectIntersection(rect1Pos, rect1Dim, rect2Pos, rect2Dim):
         return False
     #Otherwise there is an intersection.
     return True
+
+## A function load in the scores from scores.txt.
+#  @returns An int array of the scores
+def loadScores():
+    # Opens scores.txt and loads each line in to a new element in the loadedScores array
+    scoresFile = open('scores.txt', 'r')
+    loadedScores = scoresFile.readlines()
+    # Closes the file
+    scoresFile.close()
+
+    # Remove the /n from the end of each line
+    for i in range(0, len(loadedScores)):
+        loadedScores[i] = loadedScores[i].replace("\n", "")
+
+    # Convert to a int array
+    scores = []
+    for i in range(0, len(loadedScores)):
+        scores.append(int(loadedScores[i]))
+
+    # Return the array of scores
+    return scores
+
+## A function write the scores to scores.txt.
+#  @param scores The int array of the scores
+def saveScores(scores):
+    # Opens the file for writing to
+    scoresFile = open("scores.txt", "w")
+
+    # Writes the scores to the file
+    for i in range(0, len(scores)):
+        scoresFile.write("%d\n" % scores[i])
+
+    # Closes the file
+    scoresFile.close()
+
+## A function sorts the scores and the latest score into the correct order and removes the lowest score.
+#  @param latestScore The latest score
+#  @param scores The int array of the scores
+#  @returns The sorted array of the scores
+def sortScores(latestScore, scores):
+    # Add the latest score to the array of scores
+    scores.append(latestScore)
+
+    # Sort the array in descending order
+    scores = sorted(scores, reverse=True)
+
+    # Remove the last element in the array
+    scores.pop()
+
+    # Return the new array of scores
+    return scores
