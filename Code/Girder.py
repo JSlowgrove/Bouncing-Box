@@ -12,7 +12,7 @@ class Girder:
     dimensions = pygame.math.Vector2(sprite.get_width(), sprite.get_height())
 
     ##The Girder's velocity. Universal to all instances of Girder.
-    velocity = 100.0
+    velocity = 500.0
 
     ## The Girder constructor.
     #  @param self The object pointer.
@@ -23,7 +23,7 @@ class Girder:
         ##A boolean for if the Girder should be moving.
         self.moving = True
         ##A boolean for if the Girder is dead.
-        self.dead = False
+        self.dead = True
 
     ## The Girder position setter.
     #  @param self The object pointer.
@@ -79,12 +79,22 @@ class Girder:
     def getHeight(self):
         return self.dimensions.height
 
+    ## The Girder status getter.
+    #  @param self The object pointer.
+    #  @return The Girder's dead boolean.
+    def getStatus(self):
+        return self.dead
+
     ## A function to update the Girder.
     #  @param self The object pointer.
     #  @param dt The delta time.
     def update(self, dt):
         if self.moving:
             self.pos.x -= (self.velocity * dt)
+
+        # Set to dead if off the screen
+        if self.pos.x < -self.dimensions.x:
+            self.killGirder()
 
     ## A function to stop the Girder from moving by setting the moving boolean to false.
     #  @param self The object pointer.

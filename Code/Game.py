@@ -13,11 +13,11 @@ class Game:
     def __init__(self, screenDim):
         ## The screen's Dimensions.
         self.screenDim = screenDim
-        ## The Player instance
+        ## The Player instance.
         self.player = Player.Player(screenDim * 0.25)
-        ## The first Background instance
+        ## The first Background instance.
         self.background1 = Background.Background(pygame.math.Vector2(0.0,0.0))
-        ## The second Background instance
+        ## The second Background instance.
         self.background2 = Background.Background(pygame.math.Vector2(640.0,0.0))
 
     ## A function to handle the Game input.
@@ -31,10 +31,10 @@ class Game:
 
         # If SPACE is hit
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            # Make the player jump
+            # Make the player jump.
             self.player.jump()
 
-        # TMP for testing background movement
+        # TMP for testing background movement.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_0:
             self.background1.stopBackgroundMoving()
             self.background2.stopBackgroundMoving()
@@ -51,11 +51,11 @@ class Game:
     #  @returns A true/False value for if the game should continue.
     def update(self, dt):
 
-        #Update the Backgrounds
+        # Update the Backgrounds.
         self.background1.update(dt)
         self.background2.update(dt)
 
-        # Update the player
+        # Update the player.
         self.player.update(dt)
 
         # Continue the game.
@@ -66,9 +66,9 @@ class Game:
     #  @param screen The screen to draw to.
     def draw(self, screen):
 
-        # Draw the backgrounds
+        # Draw the backgrounds.
         self.background1.draw(screen)
         self.background2.draw(screen)
 
-        # Draw the player
+        # Draw the player.
         self.player.draw(screen)

@@ -12,7 +12,7 @@ class Background:
     dimensions = pygame.math.Vector2(sprite.get_width(), sprite.get_height())
 
     ##The Background's velocity. Universal to all instances of Background.
-    velocity = 100.0
+    velocity = 500.0
 
     ## The Background constructor.
     #  @param self The object pointer.
