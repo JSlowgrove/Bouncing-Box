@@ -94,6 +94,10 @@ class Player:
         #Update the player position on the screen.
         self.pos.y += (self.velocity * dt)
 
+        #Make sure that the Player does not go above the screen
+        if self.pos.y < 0.0:
+            self.pos.y = 0.0
+
     ## A function to draw the Player to the screen.
     #  @param self The object pointer.
     def draw(self, screen):
