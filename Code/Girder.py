@@ -12,7 +12,7 @@ class Girder:
     dimensions = pygame.math.Vector2(sprite.get_width(), sprite.get_height())
 
     ##The Girder's velocity. Universal to all instances of Girder.
-    velocity = 500.0
+    velocity = 200.0
 
     ## The Girder constructor.
     #  @param self The object pointer.

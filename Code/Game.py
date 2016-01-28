@@ -58,6 +58,10 @@ class Game:
         # Update the player.
         self.player.update(dt)
 
+        # If the player falls of the screen end the game
+        if self.player.getY() > self.screenDim.y:
+            return False
+
         # Continue the game.
         return True
 
