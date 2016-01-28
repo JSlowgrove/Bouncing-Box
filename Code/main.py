@@ -1,5 +1,6 @@
 import pygame
 import Game
+import Menu
 from pygame.locals import *
 
 def main():
@@ -31,8 +32,15 @@ def main():
 
     # The boolean for keeping the game running.
     running = True
-    # Initialise the game state.
-    state = Game.Game(screenDim)
+    # Initialise the game.
+    game = Game.Game(screenDim)
+    # Initialise the Menu.
+    menu = Menu.Menu(screenDim)
+
+    # The current state of the game (1 = menu, 2 = game)
+    currentState = 1
+    # The next state of the game (0 = quit, 1 = menu, 2 = game)
+    nextState = 1
 
     while running:
         # Keep the game running at the same FPS
@@ -54,23 +62,45 @@ def main():
 
         # Handle the PyGame input events.
         for event in pygame.event.get():
-            # Set the state of running to the game input.
-            running = state.input(event)
+
+            # If the current state is the menu
+            if currentState == 1:
+                # Set the state of the game to the menu input.
+                nextState = menu.input(event)
+
+            # If the current state is the game
+            elif currentState == 2:
+                # Set the state of the game to the game input.
+                nextState = game.input(event)
 
             # Check for the Input Event to toggle Debug mode.
             if event.type == pygame.KEYDOWN and event.key == pygame.K_i:
                 displayDebug = not displayDebug
 
-        # If the game is still running.
-        if running:
-            # Set the state of running to the game update.
-            running = state.update(dt)
+        # If the next state is still the same as the current state
+        if currentState == nextState:
+            # If the current state is the menu
+            if currentState == 1:
+                # Set the state of the game to the menu update.
+                nextState = menu.update(dt)
+
+            # If the current state is the game
+            elif currentState == 2:
+                # Set the state of the game to the game update.
+                nextState = game.update(dt)
 
         # Clear the screen.
         screen.fill((252, 0, 0))
 
-        # Draw the game to the screen.
-        state.draw(screen)
+        # If the current state is the menu
+        if currentState == 1:
+            # Draw the menu to the screen.
+            menu.draw(screen)
+
+        # If the current state is the game
+        elif currentState == 2:
+            # Draw the game to the screen.
+            game.draw(screen)
 
         # Display the Debug FPS Info.
         if displayDebug:
@@ -82,6 +112,17 @@ def main():
 
         # Double buffer the screen to the window.
         pygame.display.flip()
+
+        # Set the value of the current state or end the game
+        if nextState == 0:
+            # Quit
+            running = False
+        elif nextState == 1:
+            # Menu
+            currentState = 1
+        elif nextState == 2:
+            # Game
+            currentState = 2
 
 main()
 quit()

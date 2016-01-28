@@ -28,12 +28,17 @@ class Game:
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
-    #  @returns A true/False value for if the game should continue.
+    #  @returns A number for if the next state of the game (0 = quit, 1 = menu, 2 = game).
     def input(self, event):
-        # If the window is quit or escape is hit.
-        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        # If the window is quit.
+        if event.type == pygame.QUIT:
             # Exit the game.
-            return False
+            return 0
+
+        # If escape is hit.
+        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            # Return to the menu.
+            return 1
 
         # If SPACE is hit.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
@@ -55,12 +60,12 @@ class Game:
             self.score -= 1
 
         # Continue the game.
-        return True
+        return 2
 
     ## A function to update the Game.
     #  @param self The object pointer.
     #  @param dt The delta time.
-    #  @returns A true/False value for if the game should continue.
+    #  @returns A number for if the next state of the game (0 = quit, 1 = menu, 2 = game).
     def update(self, dt):
 
         # Update the Backgrounds.
@@ -75,10 +80,10 @@ class Game:
 
         # If the player falls of the screen end the game.
         if self.player.getY() > self.screenDim.y:
-            return False
+            return 1
 
         # Continue the game.
-        return True
+        return 2
 
     ## A function to draw the Game to the screen.
     #  @param self The object pointer.
