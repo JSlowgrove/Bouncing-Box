@@ -24,7 +24,7 @@ def main():
     screen = pygame.display.set_mode((int(screenDim.x), int(screenDim.y)))
 
     # Set up font
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
 
     # Boolean for Debug FPS Info display.
     displayDebug = False
@@ -74,11 +74,11 @@ def main():
 
         # Display the Debug FPS Info.
         if displayDebug:
-            screen.blit(time_display, (10, 10))
             screen.blit(rawtime_display, (10, 35))
             screen.blit(fps_display, (10, 60))
             screen.blit(pygame_total_ticks_display, (10, 85))
             screen.blit(seconds_display, (10, 110))
+            screen.blit(time_display, (10, 135))
 
         # Double buffer the screen to the window.
         pygame.display.flip()

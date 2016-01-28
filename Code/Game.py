@@ -19,6 +19,12 @@ class Game:
         self.background1 = Background.Background(pygame.math.Vector2(0.0,0.0))
         ## The second Background instance.
         self.background2 = Background.Background(pygame.math.Vector2(640.0,0.0))
+        ## The games score.
+        self.score = 0
+        # Set up font.
+        self.font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
+        # Update out the score display.
+        self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
@@ -29,7 +35,7 @@ class Game:
             # Exit the game.
             return False
 
-        # If SPACE is hit
+        # If SPACE is hit.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # Make the player jump.
             self.player.jump()
@@ -41,6 +47,12 @@ class Game:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
             self.background1.startBackgroundMoving()
             self.background2.startBackgroundMoving()
+
+        # TMP for testing scores.
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+            self.score += 1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
+            self.score -= 1
 
         # Continue the game.
         return True
@@ -58,7 +70,10 @@ class Game:
         # Update the player.
         self.player.update(dt)
 
-        # If the player falls of the screen end the game
+        # Update out the score display.
+        self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
+
+        # If the player falls of the screen end the game.
         if self.player.getY() > self.screenDim.y:
             return False
 
@@ -73,6 +88,9 @@ class Game:
         # Draw the backgrounds.
         self.background1.draw(screen)
         self.background2.draw(screen)
+
+        # Draw the score.
+        screen.blit(self.displayScore, (10, 10))
 
         # Draw the player.
         self.player.draw(screen)
