@@ -58,8 +58,11 @@ def saveScores(scores):
 ## A function sorts the scores and the latest score into the correct order and removes the lowest score.
 #  @param latestScore The latest score
 #  @param scores The int array of the scores
-#  @returns The sorted array of the scores
-def sortScores(latestScore, scores):
+def sortScores(latestScore):
+
+    # Load the scores
+    scores = loadScores()
+
     # Add the latest score to the array of scores
     scores.append(latestScore)
 
@@ -69,5 +72,5 @@ def sortScores(latestScore, scores):
     # Remove the last element in the array
     scores.pop()
 
-    # Return the new array of scores
-    return scores
+    # Save the new array of scores
+    saveScores(scores)

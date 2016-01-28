@@ -1,6 +1,7 @@
 import pygame
 import Player
 import Background
+import Utilities
 
 ## Documentation for the Game class.
 #
@@ -14,7 +15,7 @@ class Game:
         ## The screen's Dimensions.
         self.screenDim = screenDim
         ## The Player instance.
-        self.player = Player.Player(screenDim * 0.25)
+        self.player = Player.Player(self.screenDim * 0.25)
         ## The first Background instance.
         self.background1 = Background.Background(pygame.math.Vector2(0.0,0.0))
         ## The second Background instance.
@@ -80,6 +81,11 @@ class Game:
 
         # If the player falls of the screen end the game.
         if self.player.getY() > self.screenDim.y:
+            # Save the new scores
+            Utilities.sortScores(self.score)
+            # Reset the game.
+            self.player.setY(self.screenDim.y * 0.25)
+            self.score = 0
             return 1
 
         # Continue the game.
