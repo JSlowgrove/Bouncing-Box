@@ -26,6 +26,8 @@ class Game:
         self.font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
         # Update out the score display.
         self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
+        ## The jump sound effect
+        self.jumpSound = pygame.mixer.Sound('Assets/Jump.ogg')
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
@@ -43,6 +45,8 @@ class Game:
 
         # If SPACE is hit.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            # Jump sound effect
+            self.jumpSound.play()
             # Make the player jump.
             self.player.jump()
 

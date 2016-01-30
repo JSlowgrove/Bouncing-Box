@@ -4,6 +4,9 @@ import Menu
 from pygame.locals import *
 
 def main():
+    # Initialise PyGame.
+    pygame.init()
+
     # Initialise the clock.
     clock = pygame.time.Clock()
 
@@ -14,8 +17,6 @@ def main():
     # Used to correctly implement seconds.
     pygame.time.set_timer(USEREVENT + 1, 1000)
 
-    # Initialise PyGame.
-    pygame.init()
     # Set window title.
     pygame.display.set_caption("Bouncing Box")
 
@@ -41,6 +42,10 @@ def main():
     currentState = 1
     # The next state of the game (0 = quit, 1 = menu, 2 = game)
     nextState = 1
+
+    # Play the background music infinitely
+    pygame.mixer.music.load('Assets/BackgroundMusic.ogg')
+    pygame.mixer.music.play(-1)
 
     while running:
         # Keep the game running at the same FPS
