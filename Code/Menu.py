@@ -1,4 +1,5 @@
 import pygame
+import Button
 
 ## Documentation for the Menu class.
 #
@@ -17,6 +18,14 @@ class Menu:
         self.background = pygame.image.load('Assets/menuBackground.png')
         ## The logo image.
         self.logo = pygame.image.load('Assets/logo.png')
+        ## The play button
+        self.playButton = Button.Button(pygame.math.Vector2(199.0, 240.0))
+        ## The scores button
+        self.scoresButton = Button.Button(pygame.math.Vector2(199.0, 300.0))
+        ## The credit button
+        self.creditButton = Button.Button(pygame.math.Vector2(199.0, 360.0))
+        ## The exit button
+        self.exitButton = Button.Button(pygame.math.Vector2(199.0, 420.0))
 
     ## A function to handle the Menu input.
     #  @param self The object pointer.
@@ -27,9 +36,21 @@ class Menu:
             # Exit the game.
             return 0
 
-        # If ENTER is hit.
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+        # If the play button is pressed.
+        if self.playButton.input(event):
             return 2
+
+        # If the credit button is pressed.
+        if self.creditButton.input(event):
+            return 1
+
+        # If the scores button is pressed.
+        if self.scoresButton.input(event):
+            return 1
+
+        # If the exit button is pressed.
+        if self.exitButton.input(event):
+            return 0
 
         # Continue the menu.
         return 1
@@ -52,3 +73,11 @@ class Menu:
         screen.blit(self.background, (0.0, 0.0))
         #draw the logo to the screen.
         screen.blit(self.logo, (158.0, 40.0))
+        #draw the play button.
+        self.playButton.draw(screen)
+        #draw the scores button.
+        self.scoresButton.draw(screen)
+        #draw the credits button.
+        self.creditButton.draw(screen)
+        #draw the exit button.
+        self.exitButton.draw(screen)
