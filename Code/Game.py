@@ -101,6 +101,10 @@ class Game:
         # Update the player.
         self.player.update(dt)
 
+        # Check for if a score increases.
+        if self.girderManager.checkForScore(self.player.getX()):
+            self.score += 1
+
         # Update out the score display.
         self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
 

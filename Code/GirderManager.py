@@ -104,3 +104,17 @@ class GirderManager:
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             self.girders[i].setPos(pygame.math.Vector2(-100.0, 0.0))
+
+    ## A function to check if the girder scores a point.
+    #  @param self The object pointer.
+    #  @param playerX The player's X position.
+    #  @returns A boolean for if the player scores a point.
+    def checkForScore(self, playerX):
+        scorePoint = False
+        # Loop through all of the girders.
+        for i in range(0, len(self.girders)):
+            #Check if the girder is to the left of the player and can be scored.
+            if playerX > (self.girders[i].getX() + self.girders[i].getWidth()) and self.girders[i].getScoreable():
+                self.girders[i].setScoreable(False)
+                scorePoint = True
+        return scorePoint

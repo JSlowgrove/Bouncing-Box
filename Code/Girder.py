@@ -24,6 +24,20 @@ class Girder:
         self.moving = True
         ##A boolean for if the Girder is dead.
         self.dead = True
+        ##A boolean for if the Girder is scoreable.
+        self.scoreable = False
+
+    ## The Girder y position setter.
+    #  @param self The object pointer.
+    #  @param y The new value of the Girder's y position.
+    def setScoreable(self, scoreable):
+        self.scoreable = scoreable
+
+    ## The Girder position getter.
+    #  @param self The object pointer.
+    #  @return The Girder's position.
+    def getScoreable(self):
+        return self.scoreable
 
     ## The Girder moving getter.
     #  @param self The object pointer.
@@ -77,13 +91,13 @@ class Girder:
     #  @param self The object pointer.
     #  @return The Girder's width.
     def getWidth(self):
-        return self.dimensions.width
+        return self.dimensions.x
 
     ## The Girder height getter.
     #  @param self The object pointer.
     #  @return The Girder's height.
     def getHeight(self):
-        return self.dimensions.height
+        return self.dimensions.y
 
     ## The Girder status getter.
     #  @param self The object pointer.
@@ -102,6 +116,7 @@ class Girder:
         if self.pos.x < (0.0 - self.dimensions.x):
             self.killGirder()
             self.setX(640.0)
+            self.setScoreable(True)
 
     ## A function to stop the Girder from moving by setting the moving boolean to false.
     #  @param self The object pointer.
