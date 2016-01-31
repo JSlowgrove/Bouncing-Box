@@ -1,4 +1,5 @@
 import Girder
+import Utilities
 import pygame
 import threading
 from random import randint
@@ -12,10 +13,14 @@ class GirderManager:
     #  @param self The object pointer.
     def __init__(self):
         ## The array of Girders.
-        self.girders = [Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0))]
+        self.girders = [Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0))]
 
         ## A boolean for if girders should be spawn.
         self.spawing = False
@@ -118,3 +123,31 @@ class GirderManager:
                 self.girders[i].setScoreable(False)
                 scorePoint = True
         return scorePoint
+
+    ## A function to check for girder collision.
+    #  @param self The object pointer.
+    #  @param playerPos The player's position.
+    #  @param playerDim The player's Dimensions.
+    #  @returns If there is a collision.
+    def collisionCheck(self, playerPos, playerDim):
+
+        # Loop through all of the girders.
+        for i in range(0, len(self.girders)):
+            # Check for a collision with the player
+            if Utilities.rectRectIntersection(playerPos, playerDim, self.girders[i].getPos(),
+                                              self.girders[i].getDimensions()):
+                # Loop through all of the girders.
+                for j in range(0, len(self.girders)):
+                    # Set the girders to not move.
+                    self.girders[j].stopGirderMoving()
+                # Return collision.
+                return True
+
+        # No collision
+        return False
+
+    def startGirdersMoving(self):
+        # Loop through all of the girders.
+        for i in range(0, len(self.girders)):
+            # Set the girders to move.
+            self.girders[i].startGirderMoving()

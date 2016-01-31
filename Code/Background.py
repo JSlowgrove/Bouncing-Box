@@ -103,3 +103,6 @@ class Background:
     def draw(self, screen):
         #draw the sprite to the screen at the current backgrounds position
         screen.blit(self.sprite, (self.getX(), self.getY()))
+
+    def getMoveing(self):
+        return self.moving

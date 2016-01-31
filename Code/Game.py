@@ -29,8 +29,14 @@ class Game:
         self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
         ## The jump sound effect.
         self.jumpSound = pygame.mixer.Sound('Assets/Jump.ogg')
+        ## The crash sound effect.
+        self.crashSound = pygame.mixer.Sound('Assets/Crash.ogg')
+        ## The score sound effect.
+        self.scoreSound = pygame.mixer.Sound('Assets/Score.ogg')
         ## The GirderManager.
         self.girderManager = GirderManager.GirderManager()
+        ## A boolean for if the crash sound has played.
+        self.crashPlayed = False
 
     ## A function to stop the Girders from spawning.
     #  @param self The object pointer.
@@ -46,6 +52,14 @@ class Game:
     #  @param self The object pointer.
     def resetGirders(self):
         self.girderManager.resetGirders()
+
+    ## A function to reset the game movement.
+    #  @param self The object pointer.
+    def resetMovement(self):
+        self.girderManager.startGirdersMoving()
+        self.background1.startBackgroundMoving()
+        self.background2.startBackgroundMoving()
+        self.crashPlayed = False
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
@@ -63,10 +77,12 @@ class Game:
 
         # If SPACE is hit.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            # Jump sound effect
-            self.jumpSound.play()
-            # Make the player jump.
-            self.player.jump()
+            # If the player can move
+            if self.background1.getMoveing():
+                # Jump sound effect.
+                self.jumpSound.play()
+                # Make the player jump.
+                self.player.jump()
 
         # TMP for testing background movement.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_0:
@@ -101,8 +117,22 @@ class Game:
         # Update the player.
         self.player.update(dt)
 
+        # Check for collision with the girders.
+        if self.girderManager.collisionCheck(self.player.getPos(), self.player.getDimensions()):
+            # If the collision sound has already played.
+            if not self.crashPlayed:
+                # Play the collision sound.
+                self.crashSound.play()
+                self.crashPlayed = True
+            # Stop the player moving right.
+            self.background1.stopBackgroundMoving()
+            self.background2.stopBackgroundMoving()
+
         # Check for if a score increases.
         if self.girderManager.checkForScore(self.player.getX()):
+            # Play the collision sound.
+            self.scoreSound.play()
+            # Increase the score.
             self.score += 1
 
         # Update out the score display.
@@ -110,7 +140,7 @@ class Game:
 
         # If the player falls of the screen end the game.
         if self.player.getY() > self.screenDim.y:
-            # Save the new scores
+            # Save the new scores.
             Utilities.sortScores(self.score)
             # Reset the game.
             self.player.setY(self.screenDim.y * 0.25)

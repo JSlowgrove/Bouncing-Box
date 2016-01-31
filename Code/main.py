@@ -128,6 +128,7 @@ def main():
             if nextState is not currentState:
                 game.startSpawing()
                 game.resetGirders()
+                game.resetMovement()
             # Game
             currentState = 2
 
