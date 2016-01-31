@@ -45,7 +45,7 @@ def main():
 
     # Play the background music infinitely
     pygame.mixer.music.load('Assets/BackgroundMusic.ogg')
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
 
     while running:
         # Keep the game running at the same FPS
@@ -123,11 +123,19 @@ def main():
             # Quit
             running = False
         elif nextState == 1:
+            #If this is leaving a game set the girders to not spawn
+            if nextState is not currentState:
+                game.stopSpawing()
             # Menu
             currentState = 1
         elif nextState == 2:
+            #If this is starting a new game set the girders to spawn
+            if nextState is not currentState:
+                game.startSpawing()
+                game.resetGirders()
             # Game
             currentState = 2
+
 
 main()
 quit()

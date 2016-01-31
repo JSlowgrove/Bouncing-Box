@@ -2,6 +2,7 @@ import pygame
 import Player
 import Background
 import Utilities
+import GirderManager
 
 ## Documentation for the Game class.
 #
@@ -22,12 +23,29 @@ class Game:
         self.background2 = Background.Background(pygame.math.Vector2(640.0,0.0))
         ## The games score.
         self.score = 0
-        # Set up font.
+        ## Set up font.
         self.font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
-        # Update out the score display.
+        ## Update out the score display.
         self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
-        ## The jump sound effect
+        ## The jump sound effect.
         self.jumpSound = pygame.mixer.Sound('Assets/Jump.ogg')
+        ## The GirderManager.
+        self.girderManager = GirderManager.GirderManager()
+
+    ## A function to stop the Girders from spawning.
+    #  @param self The object pointer.
+    def stopSpawing(self):
+        self.girderManager.stopSpawing()
+
+    ## A function to start the Girders spawning.
+    #  @param self The object pointer.
+    def startSpawing(self):
+        self.girderManager.startSpawing()
+
+    ## A function to reset the Girders.
+    #  @param self The object pointer.
+    def resetGirders(self):
+        self.girderManager.resetGirders()
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
@@ -77,6 +95,9 @@ class Game:
         self.background1.update(dt)
         self.background2.update(dt)
 
+        # Update the girder manager.
+        self.girderManager.update(dt)
+
         # Update the player.
         self.player.update(dt)
 
@@ -103,6 +124,9 @@ class Game:
         # Draw the backgrounds.
         self.background1.draw(screen)
         self.background2.draw(screen)
+
+        # Update the girder manager.
+        self.girderManager.draw(screen)
 
         # Draw the score.
         screen.blit(self.displayScore, (10, 10))

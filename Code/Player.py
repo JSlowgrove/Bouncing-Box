@@ -12,7 +12,7 @@ class Player:
     dimensions = pygame.math.Vector2(sprite.get_width(), sprite.get_height())
 
     ##The Player's maximum fall velocity. Universal to all instances of Player.
-    maxVelocity = 1000.0
+    maxVelocity = 500.0
 
     ## The Player constructor.
     #  @param self The object pointer.
@@ -80,7 +80,7 @@ class Player:
     ## A function to make the player jump by setting the velocity to launch it up.
     #  @param self The object pointer.
     def jump(self):
-        self.velocity = -1000.0
+        self.velocity = -750.0
 
     ## A function to update the Player.
     #  @param self The object pointer.
