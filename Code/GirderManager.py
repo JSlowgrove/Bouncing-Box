@@ -146,8 +146,18 @@ class GirderManager:
         # No collision
         return False
 
+    ## A function to start all the girders moving.
+    #  @param self The object pointer.
     def startGirdersMoving(self):
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             # Set the girders to move.
             self.girders[i].startGirderMoving()
+
+    ## A function to stop all the girders moving.
+    #  @param self The object pointer.
+    def stopGirdersMoving(self):
+        # Loop through all of the girders.
+        for i in range(0, len(self.girders)):
+            # Set the girders to not move.
+            self.girders[i].stopGirderMoving()

@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="110527b0-defe-454c-960c-3b48279aeb87" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Code/Game.py" afterPath="$PROJECT_DIR$/Code/Game.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Code/Menu.py" afterPath="$PROJECT_DIR$/Code/Menu.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Code/main.py" afterPath="$PROJECT_DIR$/Code/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Code/GirderManager.py" afterPath="$PROJECT_DIR$/Code/GirderManager.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scores.txt" afterPath="$PROJECT_DIR$/scores.txt" />
     </list>
     <ignored path="BouncingBox.iws" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="Game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Code/Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3163539">
-              <caret line="187" column="54" selection-start-line="187" selection-start-column="54" selection-end-line="187" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.31903484">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -59,12 +58,12 @@
         <option value="$PROJECT_DIR$/Code/Utilities.py" />
         <option value="$PROJECT_DIR$/Code/Button.py" />
         <option value="$PROJECT_DIR$/Code/Girder.py" />
-        <option value="$PROJECT_DIR$/Code/GirderManager.py" />
         <option value="$PROJECT_DIR$/Code/Player.py" />
         <option value="$PROJECT_DIR$/Code/Background.py" />
         <option value="$PROJECT_DIR$/Code/main.py" />
         <option value="$PROJECT_DIR$/Code/Menu.py" />
         <option value="$PROJECT_DIR$/Code/Game.py" />
+        <option value="$PROJECT_DIR$/Code/GirderManager.py" />
       </list>
     </option>
   </component>
@@ -118,7 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -153,7 +152,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -703,21 +702,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code/GirderManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="72" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Code/Player.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2734585">
           <caret line="104" column="60" selection-start-line="104" selection-start-column="60" selection-end-line="104" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -725,7 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05263158">
           <caret line="77" column="37" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -733,9 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22520107">
           <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -743,14 +727,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="150" column="36" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code/GirderManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4075067">
+          <caret line="153" column="38" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code/Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3163539">
-          <caret line="187" column="54" selection-start-line="187" selection-start-column="54" selection-end-line="187" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.31903484">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

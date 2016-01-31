@@ -136,6 +136,7 @@ class Game:
                 # Stop the player moving right.
                 self.background1.stopBackgroundMoving()
                 self.background2.stopBackgroundMoving()
+                self.girderManager.stopGirdersMoving()
                 # Set the game to end.
                 self.gameEnd = True
                 # Save the new scores.
@@ -148,6 +149,7 @@ class Game:
             # Stop the player moving right.
             self.background1.stopBackgroundMoving()
             self.background2.stopBackgroundMoving()
+            self.girderManager.stopGirdersMoving()
             # Set the game to end.
             self.gameEnd = True
             # Save the new scores.
