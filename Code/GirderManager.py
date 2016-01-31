@@ -71,7 +71,7 @@ class GirderManager:
                     numSpawned += 1
 
                     # Set the y start point to the lower spawn.
-                    yStart = 175.0
+                    yStart = 200.0
 
                     # Only need two to spawn.
                     if numSpawned > 2:
