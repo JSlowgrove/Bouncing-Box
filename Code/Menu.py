@@ -26,6 +26,14 @@ class Menu:
         self.creditButton = Button.Button(pygame.math.Vector2(199.0, 360.0))
         ## The exit button
         self.exitButton = Button.Button(pygame.math.Vector2(199.0, 420.0))
+        # The play button text
+        self.playText = self.font.render("Play", 1, (75, 75, 75))
+        # The exit button text
+        self.exitText = self.font.render("Exit", 1, (75, 75, 75))
+        # The credits button text
+        self.creditsText = self.font.render("Credits", 1, (75, 75, 75))
+        # The scores button text
+        self.scoresText = self.font.render("Scores", 1, (75, 75, 75))
 
     ## A function to handle the Menu input.
     #  @param self The object pointer.
@@ -75,9 +83,17 @@ class Menu:
         screen.blit(self.logo, (158.0, 40.0))
         #draw the play button.
         self.playButton.draw(screen)
+        #draw the play text
+        screen.blit(self.playText, (210, 240))
         #draw the scores button.
         self.scoresButton.draw(screen)
+        #draw the scores text
+        screen.blit(self.scoresText, (210, 300))
         #draw the credits button.
         self.creditButton.draw(screen)
+        #draw the credits text
+        screen.blit(self.creditsText, (210, 360))
         #draw the exit button.
         self.exitButton.draw(screen)
+        #draw the exit text
+        screen.blit(self.exitText, (210, 420))

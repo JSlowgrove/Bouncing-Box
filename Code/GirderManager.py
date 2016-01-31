@@ -15,7 +15,7 @@ class GirderManager:
         self.girders = [Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
                         Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
                         Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-1000.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0))]
+                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)), Girder.Girder(pygame.math.Vector2(-100.0, 0.0))]
 
         ## A boolean for if girders should be spawn.
         self.spawing = False
@@ -103,4 +103,4 @@ class GirderManager:
     def resetGirders(self):
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
-            self.girders[i].setPos(pygame.math.Vector2(-1000.0, 0.0))
+            self.girders[i].setPos(pygame.math.Vector2(-100.0, 0.0))
