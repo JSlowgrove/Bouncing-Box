@@ -23,31 +23,31 @@ class Menu:
         self.scoresImage = pygame.image.load('Assets/scores.png')
         ## The scores image.
         self.creditsImage = pygame.image.load('Assets/credits.png')
-        ## The play button
+        ## The play button.
         self.playButton = Button.Button(pygame.math.Vector2(199.0, 240.0))
-        ## The scores button
+        ## The scores button.
         self.scoresButton = Button.Button(pygame.math.Vector2(199.0, 300.0))
-        ## The credit button
+        ## The credit button.
         self.creditButton = Button.Button(pygame.math.Vector2(199.0, 360.0))
-        ## The exit button
+        ## The exit button.
         self.exitButton = Button.Button(pygame.math.Vector2(199.0, 420.0))
-        ## The return button
+        ## The return button.
         self.returnButton = Button.Button(pygame.math.Vector2(199.0, 420.0))
-        ## The play button text
+        ## The play button text.
         self.playText = self.font.render("Play", 1, (75, 75, 75))
-        ## The exit button text
+        ## The exit button text.
         self.exitText = self.font.render("Exit", 1, (75, 75, 75))
-        ## The credits button text
+        ## The credits button text.
         self.creditsText = self.font.render("Credits", 1, (75, 75, 75))
-        ## The scores button text
+        ## The scores button text.
         self.scoresText = self.font.render("Scores", 1, (75, 75, 75))
-        ## The return button text
+        ## The return button text.
         self.returnText = self.font.render("Return", 1, (75, 75, 75))
-        ## A boolean for if the game is in the credits
+        ## A boolean for if the game is in the credits.
         self.credits = False
-        ## A boolean for if the game is in the scores
+        ## A boolean for if the game is in the scores.
         self.scores = False
-        ## The array of score text
+        ## The array of score text.
         self.scoresNumTexts = []
 
     ## A function to handle the Menu input.

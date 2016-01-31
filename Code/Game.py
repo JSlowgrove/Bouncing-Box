@@ -2,6 +2,7 @@ import pygame
 import Player
 import Background
 import Utilities
+import Button
 import GirderManager
 
 ## Documentation for the Game class.
@@ -26,17 +27,27 @@ class Game:
         ## Set up font.
         self.font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
         ## Update out the score display.
-        self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
+        self.displayScore = self.font.render("Score: " + str(self.score), 1, (75, 75, 75))
         ## The jump sound effect.
         self.jumpSound = pygame.mixer.Sound('Assets/Jump.ogg')
         ## The crash sound effect.
         self.crashSound = pygame.mixer.Sound('Assets/Crash.ogg')
         ## The score sound effect.
         self.scoreSound = pygame.mixer.Sound('Assets/Score.ogg')
+        ## The end game image.
+        self.endGame = pygame.image.load('Assets/endGame.png')
         ## The GirderManager.
         self.girderManager = GirderManager.GirderManager()
-        ## A boolean for if the crash sound has played.
-        self.crashPlayed = False
+        ## A boolean for if the game has ended.
+        self.gameEnd = False
+        ## The retry button.
+        self.retryButton = Button.Button(pygame.math.Vector2(199.0, 240.0))
+        ## The exit button.
+        self.exitButton = Button.Button(pygame.math.Vector2(199.0, 300.0))
+        ## The retry button text.
+        self.retryText = self.font.render("Retry", 1, (75, 75, 75))
+        ## The quit button text.
+        self.exitText = self.font.render("Exit", 1, (75, 75, 75))
 
     ## A function to stop the Girders from spawning.
     #  @param self The object pointer.
@@ -55,11 +66,15 @@ class Game:
 
     ## A function to reset the game movement.
     #  @param self The object pointer.
-    def resetMovement(self):
+    def reset(self):
+        self.startSpawing()
+        self.resetGirders()
         self.girderManager.startGirdersMoving()
         self.background1.startBackgroundMoving()
         self.background2.startBackgroundMoving()
-        self.crashPlayed = False
+        self.gameEnd = False
+        self.player.setY(self.screenDim.y * 0.25)
+        self.score = 0
 
     ## A function to handle the Game input.
     #  @param self The object pointer.
@@ -84,19 +99,14 @@ class Game:
                 # Make the player jump.
                 self.player.jump()
 
-        # TMP for testing background movement.
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_0:
-            self.background1.stopBackgroundMoving()
-            self.background2.stopBackgroundMoving()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
-            self.background1.startBackgroundMoving()
-            self.background2.startBackgroundMoving()
-
-        # TMP for testing scores.
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-            self.score += 1
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
-            self.score -= 1
+        # If game end.
+        if self.gameEnd:
+            # If the exit button is pressed.
+            if self.exitButton.input(event):
+                return 1
+            # If the exit button is pressed.
+            if self.retryButton.input(event):
+               self.reset()
 
         # Continue the game.
         return 2
@@ -119,14 +129,29 @@ class Game:
 
         # Check for collision with the girders.
         if self.girderManager.collisionCheck(self.player.getPos(), self.player.getDimensions()):
-            # If the collision sound has already played.
-            if not self.crashPlayed:
+            # If the game has not ended.
+            if not self.gameEnd:
                 # Play the collision sound.
                 self.crashSound.play()
-                self.crashPlayed = True
+                # Stop the player moving right.
+                self.background1.stopBackgroundMoving()
+                self.background2.stopBackgroundMoving()
+                # Set the game to end.
+                self.gameEnd = True
+                # Save the new scores.
+                Utilities.sortScores(self.score)
+
+        # If the player falls of the screen end the game and game has not ended.
+        if self.player.getY() > self.screenDim.y and not self.gameEnd:
+            # Play the collision sound.
+            self.crashSound.play()
             # Stop the player moving right.
             self.background1.stopBackgroundMoving()
             self.background2.stopBackgroundMoving()
+            # Set the game to end.
+            self.gameEnd = True
+            # Save the new scores.
+            Utilities.sortScores(self.score)
 
         # Check for if a score increases.
         if self.girderManager.checkForScore(self.player.getX()):
@@ -136,16 +161,7 @@ class Game:
             self.score += 1
 
         # Update out the score display.
-        self.displayScore = self.font.render("Score: " + str(self.score), 1, (0, 0, 0))
-
-        # If the player falls of the screen end the game.
-        if self.player.getY() > self.screenDim.y:
-            # Save the new scores.
-            Utilities.sortScores(self.score)
-            # Reset the game.
-            self.player.setY(self.screenDim.y * 0.25)
-            self.score = 0
-            return 1
+        self.displayScore = self.font.render("Score: " + str(self.score), 1, (75, 75, 75))
 
         # Continue the game.
         return 2
@@ -162,8 +178,20 @@ class Game:
         # Update the girder manager.
         self.girderManager.draw(screen)
 
-        # Draw the score.
-        screen.blit(self.displayScore, (10, 10))
-
         # Draw the player.
         self.player.draw(screen)
+
+        if self.gameEnd:
+            # Draw the end game box.
+            screen.blit(self.endGame, (110, 84))
+            # Draw the score.
+            screen.blit(self.displayScore, (265, 180))
+            # Draw the buttons.
+            self.retryButton.draw(screen)
+            self.exitButton.draw(screen)
+            # Draw the buttons text.
+            screen.blit(self.retryText, (210, 240))
+            screen.blit(self.exitText, (210, 300))
+        else:
+            # Draw the score.
+            screen.blit(self.displayScore, (10, 10))

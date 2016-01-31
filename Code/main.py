@@ -126,9 +126,7 @@ def main():
         elif nextState == 2:
             #If this is starting a new game set the girders to spawn
             if nextState is not currentState:
-                game.startSpawing()
-                game.resetGirders()
-                game.resetMovement()
+                game.reset()
             # Game
             currentState = 2
 
