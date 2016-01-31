@@ -84,13 +84,8 @@ def main():
 
         # If the next state is still the same as the current state
         if currentState == nextState:
-            # If the current state is the menu
-            if currentState == 1:
-                # Set the state of the game to the menu update.
-                nextState = menu.update(dt)
-
             # If the current state is the game
-            elif currentState == 2:
+            if currentState == 2:
                 # Set the state of the game to the game update.
                 nextState = game.update(dt)
 
