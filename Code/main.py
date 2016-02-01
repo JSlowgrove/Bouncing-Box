@@ -45,7 +45,7 @@ def main():
 
     # Play the background music infinitely
     pygame.mixer.music.load('Assets/BackgroundMusic.ogg')
-    #pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
     while running:
         # Keep the game running at the same FPS
