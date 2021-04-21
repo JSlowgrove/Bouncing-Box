@@ -1,4 +1,6 @@
 /Assets
 /docs
 Documentation.lnk
-/.idea/dictionaries
+/.idea
+*.pyc
+/Code/__pycache__
