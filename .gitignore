@@ -1,6 +1,11 @@
-/Assets
-/docs
-Documentation.lnk
-/.idea
+/assets/fonts/isl_jupiter.ttf
+.idea
+.vscode
 *.pyc
-/Code/__pycache__
+/bouncing_box/__pycache__
+/docs/*
+!docs/conf.py
+!docs/index.rst
+!docs/licence.rst
+!docs/release_notes.rst
+/docs_build

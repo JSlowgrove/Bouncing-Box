@@ -1,36 +1,45 @@
-import Girder
-import Utilities
+"""A module that contains the class and functions for the GirderManager."""
 import pygame
 import threading
+
+import bouncing_box.girder as Girder
+import bouncing_box.utilities as Utilities
+
 from random import randint
 
-## Documentation for the GirderManager class.
-#
-#  This class contains all of the functions and variables that is used by the GirderManager.
+
 class GirderManager:
+    """
+    This class contains all of the functions and variables that is used by the
+    GirderManager.
+    """
 
-    ## The GirderManager constructor.
-    #  @param self The object pointer.
     def __init__(self):
-        ## The array of Girders.
-        self.girders = [Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
-                        Girder.Girder(pygame.math.Vector2(-100.0, 0.0))]
+        """
+        The GirderManager constructor.
+        """
+        # The array of Girders.
+        self.girders = [
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0)),
+            Girder.Girder(pygame.math.Vector2(-100.0, 0.0))
+        ]
 
-        ## A boolean for if girders should be spawn.
+        # A boolean for if girders should be spawn.
         self.spawing = False
 
         # Start the spawn thread.
         self.spawnThread()
 
-    ## A function for spawning the girders every two seconds.
-    #  @param self The object pointer.
     def spawnThread(self):
+        """
+        A function for spawning the girders every two seconds.
+        """
         # Set the spawnCheck up as a thread that happens every two seconds.
         thread = threading.Timer(2, self.spawnThread)
         # Set it to be a daemon thread so it ends with the other main threads.
@@ -41,14 +50,15 @@ class GirderManager:
         # Spawn the next girders.
         self.spawnNew()
 
-    ## A function for spawning the new girders.
-    #  @param self The object pointer.
     def spawnNew(self):
-        #Only spawn if spawning is true.
+        """
+        A function for spawning the new girders.
+        """
+        # Only spawn if spawning is true.
         if self.spawing:
 
             # Get a random number for variance.
-            rndNum = randint(0,300)
+            rndNum = randint(0, 300)
             # The number of girders spawned.
             numSpawned = 0
 
@@ -77,65 +87,94 @@ class GirderManager:
                     if numSpawned > 2:
                         break
 
-    ## A function to stop the Girders from spawning.
-    #  @param self The object pointer.
     def stopSpawing(self):
+        """
+        A function to stop the Girders from spawning.
+        """
         self.spawing = False
 
-    ## A function to start the Girders spawning.
-    #  @param self The object pointer.
     def startSpawing(self):
+        """
+        A function to start the Girders spawning.
+        """
         self.spawing = True
 
-    ## A function to update the Girders.
-    #  @param self The object pointer.
-    #  @param dt The delta time.
     def update(self, dt):
+        """
+        A function to update the Girders.
+
+        :param dt: The delta time.
+        :type dt: float
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             self.girders[i].update(dt)
 
-    ## A function to draw the Girders to the screen.
-    #  @param self The object pointer.
-    #  @param screen The screen to draw to.
     def draw(self, screen):
+        """
+        A function to draw the Girders to the screen.
+
+        :param screen: The screen to draw to.
+        :type screen: class `pygame.Surface`
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             self.girders[i].draw(screen)
 
-    ## A function to reset the positions of the girders.
-    #  @param self The object pointer.
     def resetGirders(self):
+        """
+        A function to reset the positions of the girders.
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             self.girders[i].setPos(pygame.math.Vector2(-100.0, 0.0))
 
-    ## A function to check if the girder scores a point.
-    #  @param self The object pointer.
-    #  @param playerX The player's X position.
-    #  @returns A boolean for if the player scores a point.
     def checkForScore(self, playerX):
+        """
+        A function to check if the girder scores a point.
+
+        :param playerX: The player's X position.
+        :type playerX: float
+
+        :return: A boolean for if the player scores a point.
+        :rtype: bool
+        """
         scorePoint = False
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
-            #Check if the girder is to the left of the player and can be scored.
-            if playerX > (self.girders[i].getX() + self.girders[i].getWidth()) and self.girders[i].getScoreable():
+            # Check if the girder is to the left of the player and can be
+            # scored.
+            if (
+                playerX > (
+                    self.girders[i].getX() + self.girders[i].getWidth()
+                ) and self.girders[i].getScoreable()
+            ):
                 self.girders[i].setScoreable(False)
                 scorePoint = True
         return scorePoint
 
-    ## A function to check for girder collision.
-    #  @param self The object pointer.
-    #  @param playerPos The player's position.
-    #  @param playerDim The player's Dimensions.
-    #  @returns If there is a collision.
     def collisionCheck(self, playerPos, playerDim):
+        """
+        A function to check for girder collision.
 
+        :param playerPos: The player's position.
+        :type playerPos: class:`pygame.math.Vector2`
+
+        :param playerDim: The player's Dimensions.
+        :type playerDim: class:`pygame.math.Vector2`
+
+        :return: If there is a collision.
+        :rtype: bool
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             # Check for a collision with the player
-            if Utilities.rectRectIntersection(playerPos, playerDim, self.girders[i].getPos(),
-                                              self.girders[i].getDimensions()):
+            if Utilities.rectRectIntersection(
+                playerPos,
+                playerDim,
+                self.girders[i].getPos(),
+                self.girders[i].getDimensions()
+            ):
                 # Loop through all of the girders.
                 for j in range(0, len(self.girders)):
                     # Set the girders to not move.
@@ -146,17 +185,19 @@ class GirderManager:
         # No collision
         return False
 
-    ## A function to start all the girders moving.
-    #  @param self The object pointer.
     def startGirdersMoving(self):
+        """
+        A function to start all the girders moving.
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             # Set the girders to move.
             self.girders[i].startGirderMoving()
 
-    ## A function to stop all the girders moving.
-    #  @param self The object pointer.
     def stopGirdersMoving(self):
+        """
+        A function to stop all the girders moving.
+        """
         # Loop through all of the girders.
         for i in range(0, len(self.girders)):
             # Set the girders to not move.

@@ -1,72 +1,87 @@
+"""A module that contains the class and functions for the Game."""
 import pygame
-import Player
-import Background
-import Utilities
-import Button
-import GirderManager
 
-## Documentation for the Game class.
-#
-#  This class contains all of the functions and variables that is used by the Game.
+import bouncing_box.player as Player
+import bouncing_box.background as Background
+import bouncing_box.utilities as Utilities
+import bouncing_box.button as Button
+import bouncing_box.girder_manager as GirderManager
+
+
 class Game:
+    """
+    This class contains all of the functions and variables that is used by the
+    Game.
+    """
 
-    ## The Game constructor.
-    #  @param self The object pointer.
-    #  @param pos The screen dimensions.
     def __init__(self, screenDim):
-        ## The screen's Dimensions.
+        """
+        The Game constructor.
+
+        :param screenDim: The The Game constructor..
+        :type screenDim: class:`pygame.math.Vector2`
+        """
+        # The screen's Dimensions.
         self.screenDim = screenDim
-        ## The Player instance.
+        # The Player instance.
         self.player = Player.Player(self.screenDim * 0.25)
-        ## The first Background instance.
-        self.background1 = Background.Background(pygame.math.Vector2(0.0,0.0))
-        ## The second Background instance.
-        self.background2 = Background.Background(pygame.math.Vector2(640.0,0.0))
-        ## The games score.
+        # The first Background instance.
+        self.background1 = Background.Background(pygame.math.Vector2(0.0, 0.0))
+        # The second Background instance.
+        self.background2 = Background.Background(
+            pygame.math.Vector2(640.0, 0.0)
+        )
+        # The games score.
         self.score = 0
-        ## Set up font.
-        self.font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
-        ## Update out the score display.
-        self.displayScore = self.font.render("Score: " + str(self.score), 1, (75, 75, 75))
-        ## The jump sound effect.
-        self.jumpSound = pygame.mixer.Sound('Assets/Jump.ogg')
-        ## The crash sound effect.
-        self.crashSound = pygame.mixer.Sound('Assets/Crash.ogg')
-        ## The score sound effect.
-        self.scoreSound = pygame.mixer.Sound('Assets/Score.ogg')
-        ## The end game image.
-        self.endGame = pygame.image.load('Assets/endGame.png')
-        ## The GirderManager.
+        # Set up font.
+        self.font = pygame.font.Font("assets/fonts/isl_jupiter.ttf", 36)
+        # Update out the score display.
+        self.displayScore = self.font.render(
+            "Score: " + str(self.score), 1, (75, 75, 75)
+        )
+        # The jump sound effect.
+        self.jumpSound = pygame.mixer.Sound('assets/audio/jump.ogg')
+        # The crash sound effect.
+        self.crashSound = pygame.mixer.Sound('assets/audio/crash.ogg')
+        # The score sound effect.
+        self.scoreSound = pygame.mixer.Sound('assets/audio/score.ogg')
+        # The end game image.
+        self.endGame = pygame.image.load('assets/images/end_game.png')
+        # The GirderManager.
         self.girderManager = GirderManager.GirderManager()
-        ## A boolean for if the game has ended.
+        # A boolean for if the game has ended.
         self.gameEnd = False
-        ## The retry button.
+        # The retry button.
         self.retryButton = Button.Button(pygame.math.Vector2(199.0, 240.0))
-        ## The exit button.
+        # The exit button.
         self.exitButton = Button.Button(pygame.math.Vector2(199.0, 300.0))
-        ## The retry button text.
+        # The retry button text.
         self.retryText = self.font.render("Retry", 1, (75, 75, 75))
-        ## The quit button text.
+        # The quit button text.
         self.exitText = self.font.render("Exit", 1, (75, 75, 75))
 
-    ## A function to stop the Girders from spawning.
-    #  @param self The object pointer.
     def stopSpawing(self):
+        """
+        A function to stop the Girders from spawning.
+        """
         self.girderManager.stopSpawing()
 
-    ## A function to start the Girders spawning.
-    #  @param self The object pointer.
     def startSpawing(self):
+        """
+        A function to start the Girders spawning.
+        """
         self.girderManager.startSpawing()
 
-    ## A function to reset the Girders.
-    #  @param self The object pointer.
     def resetGirders(self):
+        """
+        A function to reset the Girders.
+        """
         self.girderManager.resetGirders()
 
-    ## A function to reset the game movement.
-    #  @param self The object pointer.
     def reset(self):
+        """
+        A function to reset the game movement.
+        """
         self.startSpawing()
         self.resetGirders()
         self.girderManager.startGirdersMoving()
@@ -76,24 +91,32 @@ class Game:
         self.player.setY(self.screenDim.y * 0.25)
         self.score = 0
 
-    ## A function to handle the Game input.
-    #  @param self The object pointer.
-    #  @returns A number for if the next state of the game (0 = quit, 1 = menu, 2 = game).
     def input(self, event):
+        """
+        A function to handle the Game input.
+
+        :param screenDim: A number for if the next state of the game
+            (0 = quit, 1 = menu, 2 = game).
+        :type screenDim: int
+        """
         # If the window is quit.
         if event.type == pygame.QUIT:
             # Exit the game.
             return 0
 
         # If escape is hit.
-        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        if (
+            event.type == pygame.QUIT
+            or event.type == pygame.KEYDOWN
+            and event.key == pygame.K_ESCAPE
+        ):
             # Return to the menu.
             return 1
 
         # If SPACE is hit.
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # If the player can move
-            if self.background1.getMoveing():
+            if self.background1.getMoving():
                 # Jump sound effect.
                 self.jumpSound.play()
                 # Make the player jump.
@@ -106,17 +129,22 @@ class Game:
                 return 1
             # If the exit button is pressed.
             if self.retryButton.input(event):
-               self.reset()
+                self.reset()
 
         # Continue the game.
         return 2
 
-    ## A function to update the Game.
-    #  @param self The object pointer.
-    #  @param dt The delta time.
-    #  @returns A number for if the next state of the game (0 = quit, 1 = menu, 2 = game).
     def update(self, dt):
+        """
+        A function to update the Game.
 
+        :param dt: The delta time.
+        :type dt: float
+
+        :returns: A number for if the next state of the game
+            (0 = quit, 1 = menu, 2 = game).
+        :rtype: int
+        """
         # Update the Backgrounds.
         self.background1.update(dt)
         self.background2.update(dt)
@@ -128,7 +156,9 @@ class Game:
         self.player.update(dt)
 
         # Check for collision with the girders.
-        if self.girderManager.collisionCheck(self.player.getPos(), self.player.getDimensions()):
+        if self.girderManager.collisionCheck(
+            self.player.getPos(), self.player.getDimensions()
+        ):
             # If the game has not ended.
             if not self.gameEnd:
                 # Play the collision sound.
@@ -142,7 +172,8 @@ class Game:
                 # Save the new scores.
                 Utilities.sortScores(self.score)
 
-        # If the player falls of the screen end the game and game has not ended.
+        # If the player falls of the screen end the game and game has not
+        # ended.
         if self.player.getY() > self.screenDim.y and not self.gameEnd:
             # Play the collision sound.
             self.crashSound.play()
@@ -163,16 +194,20 @@ class Game:
             self.score += 1
 
         # Update out the score display.
-        self.displayScore = self.font.render("Score: " + str(self.score), 1, (75, 75, 75))
+        self.displayScore = self.font.render(
+            "Score: " + str(self.score), 1, (75, 75, 75)
+        )
 
         # Continue the game.
         return 2
 
-    ## A function to draw the Game to the screen.
-    #  @param self The object pointer.
-    #  @param screen The screen to draw to.
     def draw(self, screen):
+        """
+        A function to draw the Game to the screen.
 
+        :param screen: The screen to draw to.
+        :type screen: class `pygame.Surface`
+        """
         # Draw the backgrounds.
         self.background1.draw(screen)
         self.background2.draw(screen)

@@ -1,16 +1,27 @@
+"""
+The starting point for running the game. This module contains the initalisation
+of the game and the main loop for the game.
+"""
 import pygame
-import Game
-import Menu
+
+import bouncing_box.game as Game
+import bouncing_box.menu as Menu
+
 from pygame.locals import *
 
+
 def main():
+    """
+    The main function of the project. This contains the code to initalise the
+    game and the main loop for the game.
+    """
     # Initialise PyGame.
     pygame.init()
 
     # Initialise the clock.
     clock = pygame.time.Clock()
 
-    #Initalise variables for Debug FPS Info.
+    # Initalise variables for Debug FPS Info.
     FPS = 60
     seconds = 0
 
@@ -26,7 +37,7 @@ def main():
     screen = pygame.display.set_mode((int(screenDim.x), int(screenDim.y)))
 
     # Set up font
-    font = pygame.font.Font("Assets/isl_jupiter.ttf", 36)
+    font = pygame.font.Font("assets/fonts/isl_jupiter.ttf", 36)
 
     # Boolean for Debug FPS Info display.
     displayDebug = False
@@ -44,7 +55,7 @@ def main():
     nextState = 1
 
     # Play the background music infinitely
-    pygame.mixer.music.load('Assets/BackgroundMusic.ogg')
+    pygame.mixer.music.load('assets/audio/background_music.ogg')
     pygame.mixer.music.play(-1)
 
     while running:
@@ -52,10 +63,18 @@ def main():
         clock.tick(FPS)
 
         # Update out the Debug FPS Info
-        time_display = font.render("Time: " + str(clock.get_time()), 1, (0, 0, 0))
-        rawtime_display = font.render("Raw Time: " + str(clock.get_rawtime()), 1, (0, 0, 0))
+        time_display = font.render(
+            "Time: " + str(clock.get_time()), 1, (0, 0, 0)
+        )
+        rawtime_display = font.render(
+            "Raw Time: " + str(clock.get_rawtime()), 1, (0, 0, 0)
+        )
         fps_display = font.render("FPS: " + str(clock.get_fps()), 1, (0, 0, 0))
-        pygame_total_ticks_display = font.render("Pygame Ticks (total): " + str(pygame.time.get_ticks()), 1, (0, 0, 0))
+        pygame_total_ticks_display = font.render(
+            "Pygame Ticks (total): " + str(pygame.time.get_ticks()),
+            1,
+            (0, 0, 0)
+        )
         seconds_display = font.render("Seconds: " + str(seconds), 1, (0, 0, 0))
 
         # Work out the Delta Time.
@@ -118,13 +137,13 @@ def main():
             # Quit
             running = False
         elif nextState == 1:
-            #If this is leaving a game set the girders to not spawn
+            # If this is leaving a game set the girders to not spawn
             if nextState is not currentState:
                 game.stopSpawing()
             # Menu
             currentState = 1
         elif nextState == 2:
-            #If this is starting a new game set the girders to spawn
+            # If this is starting a new game set the girders to spawn
             if nextState is not currentState:
                 game.reset()
             # Game
